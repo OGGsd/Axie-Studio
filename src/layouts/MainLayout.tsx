@@ -12,10 +12,12 @@ import Services from '../components/Services';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-import AIFloatingButton from '../components/AIFloatingButton';
 import BottomNavigation from '../components/BottomNavigation';
 import PrivacyPolicy from '../components/PrivacyPolicy';
 import TermsOfService from '../components/TermsOfService';
+import ChatInterface from '../components/ChatInterface';
+import AIChatAgentsPage from '../components/AIChatAgentsPage';
+import LandingPage from '../components/LandingPage';
 
 const MainLayout: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -36,25 +38,98 @@ const MainLayout: React.FC = () => {
     }
   }, [location.hash, location.pathname]);
 
+  // Layout wrapper component for pages with header and footer
+  const PageWithLayout = ({ children }: { children: React.ReactNode }) => (
+    <>
+      <Header />
+      {children}
+      <Footer />
+      <BottomNavigation />
+    </>
+  );
+
   return (
     <div className="min-h-screen" dir={currentLanguage.rtl ? 'rtl' : 'ltr'}>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="booking" element={<BookingPage />} />
-        <Route path="websites" element={<WebsitesPage />} />
-        <Route path="apps" element={<AppsPage />} />
-        <Route path="commerce" element={<CommercePage />} />
-        <Route path="services" element={<ServicesPage />} />
-        <Route path="faq" element={<FAQPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="privacy" element={<PrivacyPolicyPage />} />
-        <Route path="terms" element={<TermsOfServicePage />} />
-        <Route path="*" element={<HomePage />} />
+        {/* Landing Page - No header/footer */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Main Application Routes */}
+        <Route path="home" element={
+          <PageWithLayout>
+            <HomePage />
+          </PageWithLayout>
+        } />
+        
+        {/* Direct access to main page without language prefix */}
+        <Route path="main" element={
+          <PageWithLayout>
+            <HomePage />
+          </PageWithLayout>
+        } />
+        
+        {/* AI & Chat Routes */}
+        <Route path="ai-chat-agents" element={
+          <PageWithLayout>
+            <AIChatAgentsPage />
+          </PageWithLayout>
+        } />
+        <Route path="chat" element={<ChatInterface />} />
+        
+        {/* Service-Specific Routes */}
+        <Route path="booking" element={
+          <PageWithLayout>
+            <BookingPage />
+          </PageWithLayout>
+        } />
+        <Route path="websites" element={
+          <PageWithLayout>
+            <WebsitesPage />
+          </PageWithLayout>
+        } />
+        <Route path="apps" element={
+          <PageWithLayout>
+            <AppsPage />
+          </PageWithLayout>
+        } />
+        <Route path="commerce" element={
+          <PageWithLayout>
+            <CommercePage />
+          </PageWithLayout>
+        } />
+        <Route path="services" element={
+          <PageWithLayout>
+            <ServicesPage />
+          </PageWithLayout>
+        } />
+        
+        {/* Information Routes */}
+        <Route path="faq" element={
+          <PageWithLayout>
+            <FAQPage />
+          </PageWithLayout>
+        } />
+        <Route path="contact" element={
+          <PageWithLayout>
+            <ContactPage />
+          </PageWithLayout>
+        } />
+        
+        {/* Legal Routes */}
+        <Route path="privacy" element={
+          <PageWithLayout>
+            <PrivacyPolicyPage />
+          </PageWithLayout>
+        } />
+        <Route path="terms" element={
+          <PageWithLayout>
+            <TermsOfServicePage />
+          </PageWithLayout>
+        } />
+        
+        {/* Catch-all route */}
+        <Route path="*" element={<LandingPage />} />
       </Routes>
-      <Footer />
-      <AIFloatingButton />
-      <BottomNavigation />
     </div>
   );
 };
@@ -63,7 +138,6 @@ const MainLayout: React.FC = () => {
 const HomePage = () => (
   <>
     <Hero />
-    <AIAgentSection />
     <BookingSection />
     <WebsiteSection />
     <AppSection />

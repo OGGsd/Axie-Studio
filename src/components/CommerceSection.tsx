@@ -3,7 +3,7 @@ import { ShoppingCart, Package, CreditCard, Truck, BarChart, Shield, Users, Zap,
 import { useLanguage } from '../contexts/LanguageContext';
 
 const CommerceSection = () => {
-  const { t } = useLanguage();
+  const { t, tArray } = useLanguage();
   
   const features = [
     {
@@ -72,11 +72,11 @@ const CommerceSection = () => {
   ];
 
   return (
-    <section id="commerce" className="py-16 sm:py-20 bg-gray-50">
+    <section id="commerce" className="py-16 sm:py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('commerce.title')}</h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">{t('commerce.title')}</h2>
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
             {t('commerce.subtitle')}
           </p>
         </div>
@@ -84,14 +84,14 @@ const CommerceSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {features.map((feature, index) => (
             <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <feature.icon className="text-green-600 mb-4" size={40} />
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-600 text-sm sm:text-base">{feature.description}</p>
+              <feature.icon className="text-slate-900 mb-4" size={40} />
+              <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+              <p className="text-slate-600 text-sm sm:text-base">{feature.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-6 sm:p-8 text-white mb-12 sm:mb-16">
+        <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl p-6 sm:p-8 text-white mb-12 sm:mb-16">
           <div className="text-center mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">{t('commerce.advanced.title')}</h3>
             <p className="text-lg sm:text-xl opacity-90 max-w-3xl mx-auto">
@@ -115,7 +115,7 @@ const CommerceSection = () => {
             <div>
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">{t('commerce.cta.title')}</h3>
               <ul className="space-y-3 text-gray-600 text-sm sm:text-base">
-                {Array.isArray(t('commerce.cta.features')) && t('commerce.cta.features').map((feature: string, index: number) => (
+                {tArray('commerce.cta.features').map((feature: string, index: number) => (
                   <li key={index} className="flex items-center">
                     <div className="w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
                     {feature}

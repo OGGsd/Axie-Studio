@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { SUPPORTED_LANGUAGES } from '../types/language';
 
 const LanguageSwitcher: React.FC = () => {
-  const { currentLanguage, setLanguage } = useLanguage();
+  const { currentLanguage, changeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -34,7 +34,7 @@ const LanguageSwitcher: React.FC = () => {
   }, [isOpen, isMobile]);
 
   const handleLanguageChange = (language: typeof SUPPORTED_LANGUAGES[0]) => {
-    setLanguage(language);
+    changeLanguage(language.code);
     setIsOpen(false);
   };
 

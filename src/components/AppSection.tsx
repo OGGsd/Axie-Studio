@@ -3,7 +3,7 @@ import { Smartphone, Download, Zap, Globe, Bell, Shield } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const AppSection = () => {
-  const { t } = useLanguage();
+  const { t, tArray } = useLanguage();
   
   const features = [
     {
@@ -42,8 +42,8 @@ const AppSection = () => {
     <section id="apps" className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('apps.title')}</h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">{t('apps.title')}</h2>
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
             {t('apps.subtitle')}
           </p>
         </div>
@@ -54,12 +54,12 @@ const AppSection = () => {
           <div className="lg:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {features.map((feature, index) => (
-                <div key={index} className="text-center p-6 hover:bg-purple-50 rounded-xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="bg-purple-100 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform">
-                    <feature.icon className="text-purple-600" size={28} />
+                <div key={index} className="text-center p-6 hover:bg-slate-50 rounded-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="bg-slate-100 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform">
+                    <feature.icon className="text-slate-900" size={28} />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm sm:text-base">{feature.description}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -68,7 +68,7 @@ const AppSection = () => {
           {/* Video - Right Side */}
           <div className="lg:col-span-1 flex items-center justify-center">
             <div className="relative max-w-xs mx-auto">
-              <div className="relative bg-gradient-to-br from-purple-600 to-pink-600 p-4 rounded-3xl shadow-2xl">
+              <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-4 rounded-3xl shadow-2xl">
                 <div className="bg-black rounded-2xl overflow-hidden">
                   <video
                     autoPlay
@@ -91,10 +91,10 @@ const AppSection = () => {
               </div>
               
               {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 bg-green-500 text-white p-2 rounded-full shadow-lg animate-bounce">
+              <div className="absolute -top-4 -right-4 bg-emerald-500 text-white p-2 rounded-full shadow-lg animate-bounce">
                 <Bell size={16} />
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-blue-500 text-white p-2 rounded-full shadow-lg animate-pulse">
+              <div className="absolute -bottom-4 -left-4 bg-slate-900 text-white p-2 rounded-full shadow-lg animate-pulse">
                 <Download size={16} />
               </div>
             </div>
@@ -109,7 +109,7 @@ const AppSection = () => {
                 {t('apps.cta.description')}
               </p>
               <ul className="space-y-2 text-sm opacity-90">
-                {Array.isArray(t('apps.cta.features')) && t('apps.cta.features').map((feature: string, index: number) => (
+                {tArray('apps.cta.features').map((feature: string, index: number) => (
                   <li key={index}>• {feature}</li>
                 ))}
               </ul>
