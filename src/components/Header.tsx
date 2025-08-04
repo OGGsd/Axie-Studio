@@ -215,8 +215,7 @@ const Header: React.FC = () => {
                                                    {item.description}
                                                  </p>
                                       </div>
-                                               <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors duration-200 flex-shrink-0" />
-                                    </div>
+                                        </div>
                                            </CardContent>
                                          </Card>
                                       </motion.div>
