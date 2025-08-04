@@ -6,7 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import StructuredData from './SEO/StructuredData';
 
 const FAQ = () => {
-  const { t } = useLanguage();
+  const { t, tArray } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -14,7 +14,7 @@ const FAQ = () => {
 
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
-  const faqs = t('faq.questions', {}, []);
+  const faqs = tArray('faq.questions') || [];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,8 +39,10 @@ const FAQ = () => {
 
   return (
     <>
-      <StructuredData type="faq" data={faqs} />
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
+      {Array.isArray(faqs) && faqs.length > 0 && (
+        <StructuredData type="faq" data={faqs} />
+      )}
+      <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 to-blue-50/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-12 sm:mb-16"
@@ -49,14 +51,14 @@ const FAQ = () => {
             transition={{ duration: 0.6 }}
             ref={ref}
           >
-            <div className="inline-flex items-center bg-white/80 backdrop-blur-sm border border-blue-200/50 px-6 py-3 rounded-full text-blue-700 font-semibold mb-6 text-sm sm:text-base shadow-lg">
+            <div className="inline-flex items-center bg-white/80 backdrop-blur-sm border border-slate-200/50 px-6 py-3 rounded-full text-slate-900 font-semibold mb-6 text-sm sm:text-base shadow-lg">
               <HelpCircle className="mr-2" size={20} />
               {t('faq.badge')}
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               {t('faq.title')}
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               {t('faq.subtitle')}
             </p>
           </motion.div>
@@ -74,17 +76,17 @@ const FAQ = () => {
                 className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 overflow-hidden"
               >
                 <button
-                  className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-blue-50/50 transition-colors"
+                  className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-slate-50/50 transition-colors"
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                  <h3 className="text-lg font-semibold text-slate-900 pr-4">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
                     {openIndex === index ? (
-                      <Minus className="text-blue-600" size={24} />
+                      <Minus className="text-slate-900" size={24} />
                     ) : (
-                      <Plus className="text-blue-600" size={24} />
+                      <Plus className="text-slate-900" size={24} />
                     )}
                   </div>
                 </button>

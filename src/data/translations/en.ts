@@ -1,13 +1,111 @@
 export const en = {
+  // Common
+  common: {
+    popular: "Popular",
+    mostPopular: "MOST POPULAR",
+    contactUs: "Contact us",
+    needCustom: "Need a custom solution?",
+    customSolution: "We analyze your needs and create a custom solution",
+    startFee: "Setup fee",
+    perMonth: "per month",
+    choose: "Choose",
+    chooseBasic: "Choose Basic",
+    chooseIntelligent: "Choose Intelligent",
+    noHiddenFees: "No hidden fees",
+    moneyBack: "30-day money back",
+    professionalSetup: "Professional setup",
+    chooseTime: "Choose a time that suits you - no obligation",
+    freeDemo: "Free demo",
+    noCommitment: "No commitment",
+    whyChoose: "Why Choose Axie Studio?",
+    getStarted: "Get Started",
+    whatIncluded: "What's included:",
+    choosePackage: "Choose the package that best fits your business. All prices include full support and updates.",
+    seeFullPricing: "See full pricing list",
+    bookFreeDemo: "Book Free Demo",
+    chooseTimeNoObligation: "Choose a time that suits you - no obligation",
+    freeDemoMoneyBack: "Free demo • 30-day money back • No commitment",
+    bookFreeDemoSubtitle: "See how our AI receptionist can transform your business. We show a live demo customized for your industry.",
+    personalDemo: "30-minute personal demo",
+    customizedForIndustry: "Customized for your industry",
+    noObligation: "No obligation",
+    freeROICalculation: "Free ROI calculation",
+    bookYourDemo: "Book Your Demo",
+    liveGoogleCalendar: "Live Google Calendar Integration",
+    bookDirectly: "Book directly in our system - synchronized with Google Calendar",
+    bookingCalendar: "Axie Studio - Booking Calendar",
+    futureCustomerService: "Future Customer Service",
+    futureCustomerServiceDesc: "AI-driven customer service represents the future way of interacting with customers. Our solutions combine human understanding with machine efficiency.",
+    benefitsForBusiness: "Benefits for Your Business",
+    reduceCosts: "Reduce customer service costs by up to 70%",
+    transparentPricing: "Transparent Pricing",
+    basicAIConversation: "Basic AI conversation",
+    availability247: "24/7 availability",
+    upTo1000Conversations: "Up to 1000 conversations/month",
+    emailSupport: "Email support",
+    basicCustomization: "Basic customization",
+    everythingFromBasic: "Everything from Basic +",
+    usesCompanyInfo: "Uses company information",
+    unlimitedConversations: "Unlimited conversations",
+    prioritySupport: "Priority support",
+    fullCustomization: "Full customization & branding",
+    advancedAnalytics: "Advanced analytics & reports",
+    integrationWithExisting: "Integration with existing systems",
+    availability247Title: "24/7 Availability",
+    ecommerce: "E-commerce",
+    weCreateFuture: "We create future digital solutions with AI-driven innovation.",
+    ourAIReceptionists: "Our AI receptionists can be customized for different industries and use cases.",
+    ourAIReceptionistsBuilt: "Our AI receptionists are built with advanced machine learning and natural language processing.",
+    yourAIReceptionist: "Your AI receptionist goes live and starts helping your customers",
+    welcomeToChat: "Hi! Welcome to Axie Studio Chat. I'm here to help you. What can I help you with today?",
+    fromIntelligentChat: "From intelligent chat agents to advanced websites.",
+    stayUpdated: "Stay Updated",
+    getLatestNews: "Get the latest news about AI and digital innovation",
+    yourEmailAddress: "Your email address",
+    subscribe: "Subscribe",
+    allRightsReserved: "All rights reserved.",
+    back: "Back",
+    axieStudioChat: "Axie Studio Chat",
+    aiAssistant: "AI Assistant",
+    online: "Online",
+    writeMessageHere: "Write your message here...",
+    pressEnterToSend: "Press Enter to send, Shift+Enter for new line",
+    thankYouForQuestion: "Thank you for your question! Let me help you with that.",
+    goodQuestion: "That's a good question. Here's what I can tell you...",
+    understandWhatYouMean: "I understand what you mean. Let me explain...",
+    basedOnYourQuestion: "Based on your question, I can recommend...",
+    soundsInteresting: "That sounds interesting! Here are my thoughts...",
+    support247: "Industry Leading",
+    axieStudio: "Axie Studio",
+    aboutUs: "About Us",
+    aiChatAgents: "AI Chat Agents",
+    stefanEmail: "stefan@axiestudio.se",
+    phoneNumber: "+46 735 132 620",
+    address: "Norra Strandgatan 3, Jönköping",
+    copyright: "© {{year}} Axie Studio. All rights reserved.",
+    services: "Services",
+    webDevelopment: "Web Development",
+    appDevelopment: "App Development",
+    company: "Company",
+    contact: "Contact",
+    blog: "Blog",
+    careers: "Careers",
+    support: "Support",
+    helpCenter: "Help Center",
+    documentation: "Documentation",
+    status: "Status",
+    security: "Security"
+  },
+
   // Navigation
   nav: {
     booking: "Booking System",
     websites: "Websites",
     apps: "Apps", 
     commerce: "E-commerce",
-    services: "Pricing",
+    services: "Services",
     contact: "Contact",
-    bookTime: "Book Time",
+    bookTime: "Log in",
     login: "Login",
     home: "Home",
     chat: "Chat",
@@ -19,21 +117,119 @@ export const en = {
     recent: "Recent",
     noLanguagesFound: "No languages found matching",
     globalExcellence: "Global Excellence",
-    globalMessage: "We serve clients worldwide with localized experiences in {{count}} languages, demonstrating our commitment to global accessibility."
+    globalMessage: "We serve clients worldwide with localized experiences in {{count}} languages, demonstrating our commitment to global accessibility.",
+    dropdown: {
+      categories: {
+        webDevelopment: "Web Development",
+        aiAutomation: "AI & Automation",
+        pricing: "Pricing & Packages"
+      },
+      items: {
+        responsiveWebsites: "Responsive Websites",
+        responsiveWebsitesDesc: "Modern design that works on all devices",
+        ecommerceSolutions: "E-commerce Solutions",
+        ecommerceSolutionsDesc: "Complete online stores with payment integration",
+        webApplications: "Web Applications",
+        webApplicationsDesc: "Advanced web apps with modern technology",
+        aiChatAgents: "AI Chat Agents",
+        aiChatAgentsDesc: "Intelligent customer service agents 24/7",
+        bookingSystem: "Booking System",
+        bookingSystemDesc: "Automated booking solutions",
+        processAutomation: "Process Automation",
+        processAutomationDesc: "Streamline your business processes",
+        basicChatBot: "Basic Chat Bot",
+        basicChatBotDesc: "995 kr/month - Simple AI chatbot",
+        intelligentChatBot: "Intelligent Chat Bot",
+        intelligentChatBotDesc: "14,995 kr setup + 995 kr/month",
+        enterpriseSolutions: "Enterprise Solutions",
+        enterpriseSolutionsDesc: "Custom solutions for large companies"
+      },
+      cta: {
+        title: "Need a custom solution?",
+        button: "Contact us"
+      }
+    }
   },
   
+  // Landing Page
+  landing: {
+    welcome: "Welcome to the future of digital solutions. We don't just create websites - we build digital experiences that drive your business forward.",
+    chooseExperience: "Choose your experience",
+    chooseSubtitle: "Interact with our AI or explore our services",
+    aiChatAgent: "AI Chat Agent",
+    ourServices: "Our Services",
+    support247: "24/7 Support",
+    supportSubtitle: "Always available",
+    secure: "Secure & Reliable",
+    secureSubtitle: "Your data is safe",
+    copyright: "© 2024 Axie Studio. All rights reserved.",
+    buttons: {
+      aiChatAgent: "AI Chat Agent",
+      ourService: "Our Services"
+    },
+    features: {
+      ai: {
+        title: "AI-Powered",
+        description: "Advanced AI technology for intelligent customer service"
+      },
+      global: {
+        title: "Global Reach",
+        description: "Services available worldwide"
+      },
+      security: {
+        title: "Enterprise Security",
+        description: "Highest level security for your business"
+      },
+      speed: {
+        title: "Lightning Fast",
+        description: "Lightning-fast performance and responsiveness"
+      }
+    },
+    cards: {
+      ai: {
+        subtitle: "Intelligent customer service",
+        description: "Experience the future of customer service with our AI-receptionist who understands your business and helps your customers 24/7.",
+        button: "Explore AI Demo"
+      },
+      services: {
+        subtitle: "Complete digital solutions",
+        description: "From websites and apps to AI integration and e-commerce - we deliver everything you need for digital success.",
+        button: "Explore Services"
+      }
+    }
+  },
+
   // Hero Section
   hero: {
     badge: "#1 in the Industry",
     title: "Build, Book, Automate:",
     subtitle: "Your Digital Success, Simplified.",
     description: "We don't just create digital solutions - we build relationships and deliver results that drive your business forward with heart and passion.",
-    cta1: "Let's talk about your project",
-    cta2: "Explore our solutions",
+    cta: {
+      primary: "See AI Demo",
+      secondary: "Start Chat"
+    },
     stats: {
-      customers: "Trusted by Many",
-      uptime: "Uptime",
-      service: "Personal Service"
+      clients: "Happy Clients",
+      satisfaction: "Satisfaction",
+      support: "Support",
+      growth: "Growth",
+      customers: "500+ Successful Projects",
+      uptime: "99.9% Uptime"
+    },
+    features: {
+      ai: {
+        title: "AI-Driven",
+        description: "Advanced AI technology that understands and helps your customers 24/7"
+      },
+      global: {
+        title: "Global Reach",
+        description: "Services available worldwide with multi-language support"
+      },
+      secure: {
+        title: "Secure & Reliable",
+        description: "Enterprise-grade security and 99.9% uptime guarantee"
+      }
     }
   },
   
@@ -403,6 +599,23 @@ export const en = {
     title: "Ready to Transform Your Business?",
     description: "We love meeting new people and hearing about exciting projects. Let's have a coffee (virtual or physical) and talk about how we can help you grow.",
     
+    team: {
+      title: "Our Professional Team",
+      sweden: {
+        title: "Sweden",
+        description: "Highly qualified developers with deep understanding of Swedish business needs and market."
+      },
+      philippines: {
+        title: "Philippines",
+        description: "Skilled developers who deliver high-quality code and innovative solutions around the clock."
+      },
+      trust: {
+        title: "Trust us to make a difference in your company!",
+        description: "Our team consists of highly professional developers from Sweden and Philippines who will complete your project from the ground up. We handle everything - from idea to launch.",
+        cta: "Leave it to us!"
+      }
+    },
+    
     email: {
       title: "Send an email",
       subtitle: "We respond within 2 hours",
@@ -428,7 +641,7 @@ export const en = {
     },
     
     consultation: {
-      title: "Free Consultation over Coffee ☕",
+      title: "Free Consultation over Coffee",
       description: "We always offer a free initial consultation where we get to know you, your business, and your dreams. No sales pitches - just genuine conversations about how we can help you.",
       features: {
         duration: "30-60 minutes",
@@ -619,42 +832,7 @@ export const en = {
     }
   },
   
-  // Common
-  common: {
-    startPrice: "Setup fee",
-    monthly: "per month",
-    getStarted: "Get started",
-    learnMore: "Learn more",
-    bookConsultation: "Book consultation",
-    freeConsultation: "Free consultation",
-    noCommitment: "No commitments",
-    support247: "24/7 Support",
-    fastDelivery: "Fast delivery",
-    readMore: "Read more",
-    showLess: "Show less",
-    loading: "Loading...",
-    error: "An error occurred",
-    success: "Success!",
-    close: "Close",
-    open: "Open",
-    save: "Save",
-    cancel: "Cancel",
-    confirm: "Confirm",
-    delete: "Delete",
-    edit: "Edit",
-    add: "Add",
-    remove: "Remove",
-    update: "Update",
-    create: "Create",
-    search: "Search",
-    filter: "Filter",
-    sort: "Sort",
-    next: "Next",
-    previous: "Previous",
-    first: "First",
-    last: "Last",
-    backToHome: "Back to homepage"
-  },
+
   
   // Language Switcher
   bookingModal: {
@@ -667,5 +845,319 @@ export const en = {
     },
     loading: "Loading booking calendar...",
     iframeTitle: "Book consultation"
+  },
+
+
+
+  // AI Chat Agents Page
+  aiChatAgents: {
+    backToHome: "Back to Home",
+    seeDemo: "See Demo",
+    close: "Close",
+    aiReceptionist: "AI Receptionist",
+    liveAIReceptionist: "Live AI Receptionist",
+    nextGenAI: "NEXT-GEN AI",
+    industryLeader: "INDUSTRY LEADER",
+    bookConsultation: "Book Consultation",
+    
+    // Hero Section
+    hero: {
+      title: "Your Digital Receptionist",
+      subtitle: "Transform your customer service with AI that understands your business and provides 24/7 support",
+      description: "Our AI receptionist integrates seamlessly with your existing systems, using your company data to deliver personalized customer support that feels human."
+    },
+
+    // Statistics
+    statistics: {
+      customerSatisfaction: "Customer Satisfaction",
+      costSavings: "Cost Savings",
+      availability: "Availability",
+      responseTime: "Response Time"
+    },
+
+    // Industry Leadership
+    leadership: {
+      title: "Sweden's Best AI Receptionist",
+      subtitle: "Leading the industry with innovative solutions",
+      stats: {
+        customers: "Sweden & Philippines",
+        customersLabel: "Development Team",
+        faster: "3x faster",
+        accurate: "40% more accurate"
+      }
+    },
+
+    // Agents
+    agents: {
+      booking: {
+        name: "Booking Receptionist",
+        description: "Handles bookings, reservations and scheduling",
+        features: ["Table bookings", "Time reservations", "Scheduling"],
+        details: "Our booking receptionist specializes in handling all types of bookings and reservations. It can handle table bookings, time reservations, and scheduling for various types of services."
+      },
+      information: {
+        name: "Information Receptionist",
+        description: "Provides information about services, prices and availability",
+        features: ["Price information", "Service descriptions", "Availability"],
+        details: "The information receptionist helps customers with information about services, prices, availability and other common questions. It provides quick and accurate answers to all customer inquiries."
+      },
+      service: {
+        name: "Service Receptionist",
+        description: "Handles special requirements and personal needs",
+        features: ["Allergy handling", "Special requirements", "Personal service"],
+        details: "The service receptionist is an expert at handling special requirements, allergies and personal needs. It ensures that every customer gets the personal attention they deserve."
+      }
+    },
+
+    // Use Cases
+    useCases: {
+      restaurants: {
+        industry: "Restaurants",
+        examples: ["Table bookings", "Menu consultation", "Allergy handling", "Special requirements"],
+        benefits: ["Faster bookings", "Reduced errors", "Better customer experience"]
+      },
+      salons: {
+        industry: "Salons & Beauty",
+        examples: ["Time bookings", "Treatment advice", "Price information", "Product recommendations"],
+        benefits: ["Fewer cancellations", "Increased sales", "Personal service"]
+      },
+      drivingSchools: {
+        industry: "Driving Schools",
+        examples: ["Lesson bookings", "Theory tests", "License process", "Price information"],
+        benefits: ["More efficient scheduling", "Reduced administration", "Faster responses"]
+      },
+      libraries: {
+        industry: "Libraries",
+        examples: ["Book loans", "Room reservations", "Events", "Research support"],
+        benefits: ["Improved accessibility", "Reduced waiting time", "Better service"]
+      }
+    },
+
+    // FAQ
+    faq: {
+      implementation: {
+        question: "How quickly can we implement an AI agent?",
+        answer: "Typical implementation time is 2-4 weeks depending on complexity and customizations. We also offer quick-start packages for simpler solutions."
+      },
+      integration: {
+        question: "Can the AI agent integrate with our existing systems?",
+        answer: "Yes, our AI agents can integrate with most existing systems via APIs. We support CRM systems, e-commerce platforms, booking systems, and customer databases. The AI agent uses your data to provide personalized support."
+      },
+      bookingIntegration: {
+        question: "How does integration with our booking system work?",
+        answer: "The AI agent can check availability, pre-fill information in your booking system, and direct customers to your existing process. It works as an intelligent assistant that understands your systems."
+      },
+      security: {
+        question: "How secure is the AI agent with customer data?",
+        answer: "We follow GDPR and all Swedish data protection regulations. All data is encrypted and stored securely. We also offer on-premise solutions for extra security."
+      },
+      terminology: {
+        question: "Can the AI agent learn our company's specific terminology?",
+        answer: "Absolutely! The AI agent is trained on your specific data and terminology. It learns continuously and adapts to your company's unique needs."
+      },
+      fallback: {
+        question: "What happens if the AI agent can't answer a question?",
+        answer: "The AI agent automatically directs complex questions to human support. It also learns from each interaction to improve future responses."
+      }
+    },
+
+    // Pricing
+    pricing: {
+      title: "Simple, Transparent Pricing",
+      subtitle: "Choose the plan that fits your business",
+      basic: {
+        title: "Basic Chat Bot",
+        price: "995 kr",
+        period: "per month",
+        description: "Perfect for getting started with AI customer service",
+        features: [
+          "24/7 availability",
+          "Basic customer support",
+          "Email integration",
+          "Standard responses",
+          "Basic analytics"
+        ]
+      },
+      intelligent: {
+        title: "Intelligent Chat Bot",
+        price: "14,995 kr",
+        startFee: "start fee",
+        then: "then",
+        monthly: "995 kr per month",
+        description: "Uses your company information for personalized support",
+        badge: "MOST POPULAR",
+        features: [
+          "Everything in Basic",
+          "Company data integration",
+          "Personalized responses",
+          "Advanced analytics",
+          "CRM integration",
+          "Custom training",
+          "Priority support"
+        ]
+      },
+      setup: "Professional setup",
+      demo: "Free demo"
+    },
+
+    // Implementation Timeline
+    timeline: {
+      title: "Implementation Timeline",
+      subtitle: "From idea to launch in just 4 steps",
+      steps: [
+        {
+          title: "Analysis & Planning",
+          description: "We analyze your business needs and plan the perfect AI solution"
+        },
+        {
+          title: "Data Integration",
+          description: "We integrate your company data and train the AI on your specific needs"
+        },
+        {
+          title: "Testing & Optimization",
+          description: "We test the AI thoroughly and optimize it for your business"
+        },
+        {
+          title: "Launch & Support",
+          description: "We launch your AI receptionist and provide ongoing support"
+        }
+      ]
+    },
+
+    // Contact & Demo
+    contact: {
+      title: "Ready to Get Started?",
+      subtitle: "Book a free demo and see how our AI receptionist can transform your business",
+      form: {
+        name: "Name",
+        email: "Email",
+        company: "Company",
+        message: "Message",
+        submit: "Book Free Demo"
+      }
+    },
+
+    // Final CTA
+    finalCta: {
+      title: "Be Part of the Future",
+      subtitle: "Join hundreds of service businesses that have already transformed their customer service",
+      stats: {
+        customers: "500+ satisfied customers",
+        industries: "15+ industries served",
+        satisfaction: "95% customer satisfaction"
+      },
+      buttons: {
+        demo: "Book Free Demo",
+        contact: "Contact Us"
+      }
+    },
+
+    // Industry Demos
+    industryDemos: {
+      title: "See AI Receptionist in Action",
+      subtitle: "Choose industry to see how our AI can help your business",
+      integrationNote: "We can integrate with your existing systems via webhooks, APIs and MCP (Model Context Protocol)",
+      selectIndustry: "Select Industry",
+      demos: {
+        restaurant: {
+          title: "Restaurant",
+          description: "Table bookings, menu questions, allergy handling",
+          conversation: "Restaurant Chat"
+        },
+        salon: {
+          title: "Salon & Beauty",
+          description: "Appointment bookings, treatment advice, pricing",
+          conversation: "Salon Chat"
+        },
+        drivingSchool: {
+          title: "Driving School",
+          description: "Lesson bookings, theory tests, license process",
+          conversation: "Driving School Chat"
+        },
+        library: {
+          title: "Library",
+          description: "Book loans, room reservations, events",
+          conversation: "Library Chat"
+        },
+        dentist: {
+          title: "Dentist",
+          description: "Dental appointments, treatment advice, emergency bookings",
+          conversation: "Dentist Chat"
+        },
+        physio: {
+          title: "Physiotherapy",
+          description: "Treatment sessions, rehabilitation, home exercises",
+          conversation: "Physiotherapy Chat"
+        },
+        massage: {
+          title: "Massage",
+          description: "Massage bookings, treatment types, relaxation",
+          conversation: "Massage Chat"
+        },
+        lawyer: {
+          title: "Lawyer",
+          description: "Consultations, case status, document handling",
+          conversation: "Lawyer Chat"
+        },
+        consultant: {
+          title: "Consultant",
+          description: "Project planning, meeting bookings, reports",
+          conversation: "Consultant Chat"
+        },
+        gym: {
+          title: "Gym & Training",
+          description: "Memberships, training sessions, personal trainer",
+          conversation: "Gym Chat"
+        }
+      }
+    }
+  },
+
+  // Page Titles and Meta
+  pages: {
+    home: {
+      title: "Axie Studio - Digital Solutions for Your Business",
+      description: "Professional websites, booking systems, e-commerce solutions, and AI-powered customer service. Transform your business with our digital solutions."
+    },
+    aiChatAgents: {
+      title: "AI Chat Agents - Digital Receptionist | Axie Studio",
+      description: "Transform your customer service with our AI receptionist. 24/7 support, intelligent responses, and seamless integration with your existing systems."
+    },
+    booking: {
+      title: "Booking System - Advanced Scheduling | Axie Studio",
+      description: "Professional booking system with intelligent scheduling, payment integration, and automated reminders. Perfect for all service businesses."
+    },
+    websites: {
+      title: "Website Development - Professional Websites | Axie Studio",
+      description: "Custom website development with SEO optimization, mobile responsiveness, and modern design. Convert visitors into customers."
+    },
+    apps: {
+      title: "Mobile App Development - iOS & Android | Axie Studio",
+      description: "Cross-platform mobile app development for iOS and Android. From idea to App Store publication with modern technology."
+    },
+    commerce: {
+      title: "E-commerce Solutions - Online Stores | Axie Studio",
+      description: "Complete e-commerce solutions with secure payments, inventory management, and marketing automation. Start selling online today."
+    },
+    services: {
+      title: "Our Services - Digital Solutions | Axie Studio",
+      description: "Choose from our range of digital solutions: websites, e-commerce, booking systems, and mobile apps. Professional service and support."
+    },
+    contact: {
+      title: "Contact Us - Get Started | Axie Studio",
+      description: "Ready to transform your business? Contact our team of Swedish and Philippine developers for a free consultation."
+    },
+    faq: {
+      title: "FAQ - Frequently Asked Questions | Axie Studio",
+      description: "Find answers to common questions about our services, pricing, and implementation. Can't find what you're looking for? Contact us!"
+    },
+    privacy: {
+      title: "Privacy Policy | Axie Studio",
+      description: "Learn how we handle your personal information and protect your privacy. GDPR compliant and transparent data practices."
+    },
+    terms: {
+      title: "Terms of Service | Axie Studio",
+      description: "Read our terms of service for using Axie Studio's digital solutions and services. Clear and fair terms for all customers."
+    }
   }
 };
