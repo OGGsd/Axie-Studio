@@ -137,12 +137,14 @@ export const en = {
         bookingSystemDesc: "Automated booking solutions",
         processAutomation: "Process Automation",
         processAutomationDesc: "Streamline your business processes",
-        basicChatBot: "Basic Chat Bot",
-        basicChatBotDesc: "995 kr/month - Simple AI chatbot",
-        intelligentChatBot: "Intelligent Chat Bot",
-        intelligentChatBotDesc: "14,995 kr setup + 995 kr/month",
-        enterpriseSolutions: "Enterprise Solutions",
-        enterpriseSolutionsDesc: "Custom solutions for large companies"
+        websitePackage: "Website",
+        websitePackageDesc: "8,995 SEK start + 495 SEK/month",
+        commercePackage: "E-commerce",
+        commercePackageDesc: "10,995 SEK start + 895 SEK/month",
+        bookingPackage: "Booking System",
+        bookingPackageDesc: "10,995 SEK start + 995 SEK/month",
+        completePackage: "Complete",
+        completePackageDesc: "14,995 SEK start + 1,495 SEK/month"
       },
       cta: {
         title: "Need a custom solution?",

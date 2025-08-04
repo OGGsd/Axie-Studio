@@ -235,9 +235,8 @@ const Header: React.FC = () => {
                                  <Button
                                    variant="glow"
                                    onClick={() => navigate('/contact')}
-                                   className="flex items-center space-x-2 mx-auto"
+                              className="mx-auto"
                                  >
-                                   <Sparkles className="w-4 h-4" />
                                    <span>{t('common.contactUs')}</span>
                                  </Button>
                           </div>

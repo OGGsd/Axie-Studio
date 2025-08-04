@@ -137,12 +137,14 @@ export const sv = {
         bookingSystemDesc: "Automatiserade bokningslösningar",
         processAutomation: "Processautomatisering",
         processAutomationDesc: "Effektivisera dina företagsprocesser",
-        basicChatBot: "Basic Chat Bot",
-        basicChatBotDesc: "995 kr/månad - Enkel AI-chatbot",
-        intelligentChatBot: "Intelligent Chat Bot",
-        intelligentChatBotDesc: "14 995 kr start + 995 kr/månad",
-        enterpriseSolutions: "Enterprise Lösningar",
-        enterpriseSolutionsDesc: "Skräddarsydda lösningar för stora företag"
+        websitePackage: "Webbplats",
+        websitePackageDesc: "8 995 kr start + 495 kr/månad",
+        commercePackage: "E-handel",
+        commercePackageDesc: "10 995 kr start + 895 kr/månad",
+        bookingPackage: "Bokningssystem",
+        bookingPackageDesc: "10 995 kr start + 995 kr/månad",
+        completePackage: "Komplett",
+        completePackageDesc: "14 995 kr start + 1 495 kr/månad"
       },
       cta: {
         title: "Behöver du en skräddarsydd lösning?",
