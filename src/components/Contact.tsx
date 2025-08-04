@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Heart, Coffee, Clock, Calendar, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import BookingModal from './BookingModal';
 
@@ -38,11 +37,11 @@ const Contact = () => {
 
   return (
     <>
-      <section id="contact" className="py-16 sm:py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 relative overflow-hidden">
+      <section id="contact" className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-floating-delayed" />
+          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-slate-400/10 to-blue-400/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl animate-floating-delayed" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,16 +52,42 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             ref={ref}
           >
-            <div className="inline-flex items-center bg-gradient-to-r from-pink-100 to-purple-100 px-6 py-3 rounded-full text-purple-700 font-semibold mb-6 text-sm sm:text-base">
-              <Heart className="mr-2 animate-pulse" size={16} />
+            <div className="inline-flex items-center bg-gradient-to-r from-slate-100 to-blue-100 px-6 py-3 rounded-full text-slate-900 font-semibold mb-6 text-sm sm:text-base">
+              <div className="w-4 h-4 bg-slate-900 rounded mr-2"></div>
               {t('contact.badge')}
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               {t('contact.title')}
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               {t('contact.description')}
             </p>
+            
+            {/* Team Section */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-8 shadow-xl border border-white/50">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('contact.team.title')}</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <div className="w-8 h-8 bg-white rounded"></div>
+                  </div>
+                  <h4 className="text-xl font-bold text-slate-900 mb-2">{t('contact.team.sweden.title')}</h4>
+                  <p className="text-slate-600">{t('contact.team.sweden.description')}</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <div className="w-8 h-8 bg-white rounded"></div>
+                  </div>
+                  <h4 className="text-xl font-bold text-slate-900 mb-2">{t('contact.team.philippines.title')}</h4>
+                  <p className="text-slate-600">{t('contact.team.philippines.description')}</p>
+                </div>
+              </div>
+              <div className="mt-8 p-6 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl text-white">
+                <h4 className="text-xl font-bold mb-3">{t('contact.team.trust.title')}</h4>
+                <p className="text-white/90 mb-4">{t('contact.team.trust.description')}</p>
+                <p className="text-white/80 font-semibold">{t('contact.team.trust.cta')}</p>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div 
@@ -78,35 +103,35 @@ const Contact = () => {
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <Mail className="text-white" size={32} />
+                <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-8 h-8 bg-white rounded"></div>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-4 text-xl">{t('contact.email.title')}</h3>
+                <h3 className="font-bold text-slate-900 mb-4 text-xl">{t('contact.email.title')}</h3>
                 
                 {/* Multiple Email Addresses */}
                 <div className="space-y-3">
                   <div>
                     <a 
                       href="mailto:stefan@axiestudio.se" 
-                      className="text-blue-600 hover:text-blue-700 transition-colors font-medium text-lg gradient-text-cosmic block"
+                      className="text-slate-900 hover:text-slate-700 transition-colors font-medium text-lg block"
                     >
                       stefan@axiestudio.se
                     </a>
-                    <p className="text-gray-500 text-xs">{t('contact.email.addresses.0.label')}</p>
+                    <p className="text-slate-500 text-xs">{t('contact.email.addresses.0.label')}</p>
                   </div>
                   
                   <div>
                     <a 
                       href="mailto:support@axiestudio.se" 
-                      className="text-blue-600 hover:text-blue-700 transition-colors font-medium text-lg gradient-text-cosmic block"
+                      className="text-slate-900 hover:text-slate-700 transition-colors font-medium text-lg block"
                     >
                       support@axiestudio.se
                     </a>
-                    <p className="text-gray-500 text-xs">{t('contact.email.addresses.1.label')}</p>
+                    <p className="text-slate-500 text-xs">{t('contact.email.addresses.1.label')}</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-500 text-sm mt-4">{t('contact.email.subtitle')}</p>
+                <p className="text-slate-500 text-sm mt-4">{t('contact.email.subtitle')}</p>
               </motion.div>
               
               {/* Phone Contact */}
@@ -115,35 +140,35 @@ const Contact = () => {
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
-                <div className="bg-gradient-to-br from-green-500 to-green-600 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <Phone className="text-white" size={32} />
+                <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-8 h-8 bg-white rounded"></div>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-4 text-xl">{t('contact.phone.title')}</h3>
+                <h3 className="font-bold text-slate-900 mb-4 text-xl">{t('contact.phone.title')}</h3>
                 
                 {/* Multiple Phone Numbers */}
                 <div className="space-y-3">
                   <div>
                     <a 
                       href="tel:+46735132620" 
-                      className="text-green-600 hover:text-green-700 transition-colors font-medium text-lg gradient-text-aurora block"
+                      className="text-slate-900 hover:text-slate-700 transition-colors font-medium text-lg block"
                     >
                       +46 735 132 620
                     </a>
-                    <p className="text-gray-500 text-xs">{t('contact.phone.numbers.0.label')}</p>
+                    <p className="text-slate-500 text-xs">{t('contact.phone.numbers.0.label')}</p>
                   </div>
                   
                   <div>
                     <a 
                       href="tel:+639625761387" 
-                      className="text-green-600 hover:text-green-700 transition-colors font-medium text-lg gradient-text-aurora block"
+                      className="text-slate-900 hover:text-slate-700 transition-colors font-medium text-lg block"
                     >
                       +63 962 576 1387
                     </a>
-                    <p className="text-gray-500 text-xs">{t('contact.phone.numbers.1.label')}</p>
+                    <p className="text-slate-500 text-xs">{t('contact.phone.numbers.1.label')}</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-500 text-sm mt-4">{t('contact.phone.subtitle')}</p>
+                <p className="text-slate-500 text-sm mt-4">{t('contact.phone.subtitle')}</p>
               </motion.div>
               
               {/* Location Contact */}
@@ -152,12 +177,12 @@ const Contact = () => {
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
-                <div className="bg-gradient-to-br from-purple-500 to-purple-600 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <MapPin className="text-white" size={32} />
+                <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-8 h-8 bg-white rounded"></div>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-3 text-xl">{t('contact.location.title')}</h3>
-                <p className="text-purple-600 font-medium text-lg gradient-text-cosmic">{t('contact.location.address')}</p>
-                <p className="text-gray-500 text-sm mt-2">{t('contact.location.subtitle')}</p>
+                <h3 className="font-bold text-slate-900 mb-4 text-xl">{t('contact.location.title')}</h3>
+                <p className="text-slate-900 font-medium text-lg mb-2">{t('contact.location.address')}</p>
+                <p className="text-slate-500 text-sm">{t('contact.location.subtitle')}</p>
               </motion.div>
             </div>
 
@@ -172,7 +197,7 @@ const Contact = () => {
               <div className="relative z-10 text-center">
                 <div className="flex justify-center mb-6">
                   <div className="bg-white/20 p-4 rounded-3xl backdrop-blur-sm">
-                    <Coffee className="text-white" size={40} />
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center"></div>
                   </div>
                 </div>
                 
@@ -185,15 +210,15 @@ const Contact = () => {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
                   <div className="flex items-center justify-center bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
-                    <Clock className="mr-2" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center"></div>
                     <span className="text-sm font-medium">{t('contact.consultation.features.duration')}</span>
                   </div>
                   <div className="flex items-center justify-center bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
-                    <Heart className="mr-2 animate-pulse" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center"></div>
                     <span className="text-sm font-medium">{t('contact.consultation.features.free')}</span>
                   </div>
                   <div className="flex items-center justify-center bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
-                    <Coffee className="mr-2" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center"></div>
                     <span className="text-sm font-medium">{t('contact.consultation.features.atmosphere')}</span>
                   </div>
                 </div>
@@ -206,9 +231,9 @@ const Contact = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <Calendar className="mr-2 group-hover:scale-110 transition-transform relative z-10" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center relative z-10"></div>
                     <span className="relative z-10">{t('contact.consultation.buttons.book')}</span>
-                    <Sparkles className="ml-2 group-hover:scale-110 transition-transform relative z-10" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center relative z-10"></div>
                   </motion.button>
                   
                   <motion.a 
@@ -217,7 +242,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Mail className="mr-2 group-hover:scale-110 transition-transform" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center relative z-10"></div>
                     {t('contact.consultation.buttons.email')}
                   </motion.a>
                   
@@ -227,7 +252,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Phone className="mr-2 group-hover:scale-110 transition-transform" size={20} />
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center relative z-10"></div>
                     {t('contact.consultation.buttons.call')}
                   </motion.a>
                 </div>

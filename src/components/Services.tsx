@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useLanguage } from '../contexts/LanguageContext';
 import ServiceCard from './ServiceCard';
-import { Sparkles, Crown, Star, Zap } from 'lucide-react';
+import { Card, CardContent } from './ui/card';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 
 const Services = () => {
   const { t } = useLanguage();
@@ -23,7 +25,7 @@ const Services = () => {
       startPrice: "8 995 kr",
       monthlyPrice: "495 kr",
       badge: t('services.website.badge'),
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: "from-slate-900 via-blue-900 to-indigo-900",
       features: [
         { name: t('services.website.features.0'), included: true },
         { name: t('services.website.features.1'), included: true },
@@ -41,7 +43,7 @@ const Services = () => {
       startPrice: "10 995 kr",
       monthlyPrice: "895 kr",
       badge: t('services.commerce.badge'),
-      gradient: "from-emerald-500 to-teal-500",
+      gradient: "from-slate-900 via-blue-900 to-indigo-900",
       features: [
         { name: t('services.commerce.features.0'), included: true },
         { name: t('services.commerce.features.1'), included: true },
@@ -60,7 +62,7 @@ const Services = () => {
       monthlyPrice: "995 kr",
       isPopular: true,
       badge: t('services.booking.badge'),
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-slate-900 via-blue-900 to-indigo-900",
       features: [
         { name: t('services.booking.features.0'), included: true },
         { name: t('services.booking.features.1'), included: true },
@@ -78,7 +80,7 @@ const Services = () => {
       startPrice: "14 995 kr",
       monthlyPrice: "1 495 kr",
       badge: t('services.complete.badge'),
-      gradient: "from-orange-500 to-red-500",
+      gradient: "from-slate-900 via-blue-900 to-indigo-900",
       info: t('services.complete.info'),
       features: [
         { name: t('services.complete.features.0'), included: true },
@@ -98,19 +100,18 @@ const Services = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.1
       }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 60, scale: 0.9 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
@@ -118,12 +119,10 @@ const Services = () => {
 
   return (
     <section id="services" className="relative py-20 sm:py-28 overflow-hidden">
-      {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
-        {/* Animated background elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-floating-delayed" />
-        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-r from-emerald-400/10 to-cyan-400/10 rounded-full blur-3xl animate-floating-slow" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50/30">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-slate-400/10 to-blue-400/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,25 +134,21 @@ const Services = () => {
           ref={ref}
         >
           {/* Badge */}
-          <motion.div 
-            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold mb-8 shadow-2xl"
-            initial={{ scale: 0, rotate: -10 }}
-            animate={inView ? { scale: 1, rotate: 0 } : {}}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          <Badge 
+            variant="glow"
+            className="mb-8 text-sm"
           >
-            <Crown className="mr-2 animate-bounce" size={20} />
             {t('services.badge')}
-            <Sparkles className="ml-2 animate-pulse" size={20} />
-          </motion.div>
+          </Badge>
 
           {/* Main Heading */}
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8 leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
             {t('services.title')}
           </h2>
 
           {/* Subtitle */}
           <motion.p 
-            className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium"
+            className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -168,24 +163,36 @@ const Services = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <div className="flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-white/50">
-              <Star className="text-yellow-500 mr-2" size={16} />
-              <span className="text-sm font-semibold text-gray-700">{t('hero.stats.customers', {}, '500+ Framgångsrika Projekt')}</span>
-            </div>
-            <div className="flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-white/50">
-              <Zap className="text-green-500 mr-2" size={16} />
-              <span className="text-sm font-semibold text-gray-700">{t('hero.stats.uptime', {}, '99.9% Drifttid')}</span>
-            </div>
-            <div className="flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-white/50">
-              <Crown className="text-purple-500 mr-2" size={16} />
-              <span className="text-sm font-semibold text-gray-700">{t('common.support247', {}, 'Branschledande')}</span>
-            </div>
+            <Card variant="glass">
+              <CardContent className="px-4 py-2">
+                <div className="flex items-center">
+                  <div className="w-3 h-3 bg-amber-400 rounded-full mr-2"></div>
+                  <span className="text-sm font-semibold text-slate-900">{t('hero.stats.customers')}</span>
+                </div>
+              </CardContent>
+            </Card>
+            <Card variant="glass">
+              <CardContent className="px-4 py-2">
+                <div className="flex items-center">
+                  <div className="w-3 h-3 bg-emerald-400 rounded-full mr-2"></div>
+                  <span className="text-sm font-semibold text-slate-900">{t('hero.stats.uptime')}</span>
+                </div>
+              </CardContent>
+            </Card>
+            <Card variant="glass">
+              <CardContent className="px-4 py-2">
+                <div className="flex items-center">
+                  <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                  <span className="text-sm font-semibold text-slate-900">{t('common.support247')}</span>
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
         </motion.div>
 
-        {/* Pricing Cards */}
+        {/* Pricing Cards - Improved Layout */}
         <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -208,72 +215,70 @@ const Services = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 1.2, duration: 0.8 }}
         >
-          <div className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
-            {/* Background decorations */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full -translate-y-32 translate-x-32" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full translate-y-24 -translate-x-24" />
-            
-            <div className="relative z-10">
+          <Card variant="gradient" className="p-8 sm:p-12 text-white relative overflow-hidden">
+            <CardContent className="relative z-10">
               <h3 className="text-3xl sm:text-4xl font-bold mb-6">
                 {t('services.cta.title')}
               </h3>
-              <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+              <p className="text-xl text-slate-200 mb-8 max-w-3xl mx-auto">
                 {t('services.cta.description')}
               </p>
               
-              <motion.button
+              <Button
+                variant="default"
+                size="lg"
                 onClick={handleContact}
-                className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-glow-lg transition-all duration-500 transform hover:scale-105 text-lg"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                className="bg-white text-slate-900 font-bold shadow-2xl hover:shadow-glow-lg transition-all duration-500 transform hover:scale-105 text-lg"
               >
                 <span className="flex items-center">
-                  <Sparkles className="mr-2 animate-pulse" size={20} />
+                  <div className="w-4 h-4 bg-slate-900 rounded mr-2"></div>
                   {t('services.cta.button')}
-                  <Sparkles className="ml-2 animate-pulse" size={20} />
+                  <div className="w-4 h-4 bg-slate-900 rounded ml-2"></div>
                 </span>
-              </motion.button>
-            </div>
-          </div>
+              </Button>
+            </CardContent>
+          </Card>
 
           {/* Fine print */}
-          <div className="mt-8 bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50">
-            <div className="text-sm text-gray-600 space-y-2">
-              <p className="flex items-center justify-center">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                * {t('services.fineprint.appStore')}
-              </p>
-              <p className="flex items-center justify-center">
-                <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
-                ** {t('services.fineprint.domain')}
-              </p>
-              <p className="flex items-center justify-center">
-                <span className="w-2 h-2 bg-pink-500 rounded-full mr-2"></span>
-                {t('services.fineprint.vat')}
-              </p>
-            </div>
-            
-            <div className="mt-6 pt-4 border-t border-gray-200">
-              <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
-                <span className="flex items-center text-green-600">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                  {t('common.freeConsultation')}
-                </span>
-                <span className="flex items-center text-blue-600">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                  {t('common.noCommitment')}
-                </span>
-                <span className="flex items-center text-purple-600">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
-                  {t('common.support247')}
-                </span>
-                <span className="flex items-center text-orange-600">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
-                  {t('common.fastDelivery')}
-                </span>
+          <Card variant="elevated" className="mt-8">
+            <CardContent className="p-6">
+              <div className="text-sm text-slate-600 space-y-2">
+                <p className="flex items-center justify-center">
+                  <span className="w-2 h-2 bg-slate-900 rounded-full mr-2"></span>
+                  * {t('services.fineprint.appStore')}
+                </p>
+                <p className="flex items-center justify-center">
+                  <span className="w-2 h-2 bg-blue-900 rounded-full mr-2"></span>
+                  ** {t('services.fineprint.domain')}
+                </p>
+                <p className="flex items-center justify-center">
+                  <span className="w-2 h-2 bg-indigo-900 rounded-full mr-2"></span>
+                  {t('services.fineprint.vat')}
+                </p>
               </div>
-            </div>
-          </div>
+              
+              <div className="mt-6 pt-4 border-t border-slate-200">
+                <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
+                  <span className="flex items-center text-emerald-600">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+                    {t('common.freeConsultation')}
+                  </span>
+                  <span className="flex items-center text-slate-900">
+                    <span className="w-2 h-2 bg-slate-900 rounded-full mr-2"></span>
+                    {t('common.noCommitment')}
+                  </span>
+                  <span className="flex items-center text-blue-900">
+                    <span className="w-2 h-2 bg-blue-900 rounded-full mr-2"></span>
+                    {t('common.support247')}
+                  </span>
+                  <span className="flex items-center text-indigo-900">
+                    <span className="w-2 h-2 bg-indigo-900 rounded-full mr-2"></span>
+                    {t('common.fastDelivery')}
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live AI Chat Demo - Interactive Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            color: white;
+            padding: 24px 32px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .chat-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .chat-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .chat-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-blur: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+            background: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-avatar.ai {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .message-avatar.user {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .message-content {
+            flex: 1;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            max-width: 80%;
+        }
+
+        .message.ai .message-content {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-color: #cbd5e1;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            margin-left: auto;
+        }
+
+        .message-text {
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #64748b;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Interactive Calendar Styles */
+        .booking-iframe-container {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 16px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .iframe-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .iframe-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .iframe-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .iframe-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .status-indicator-iframe {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .calendar-interface {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+                 .calendar-weekdays {
+             display: grid;
+             grid-template-columns: repeat(7, 1fr);
+             gap: 8px;
+             margin-bottom: 12px;
+         }
+
+         .weekday {
+             text-align: center;
+             font-size: 12px;
+             font-weight: 600;
+             color: #64748b;
+             padding: 8px 4px;
+             text-transform: uppercase;
+             letter-spacing: 0.5px;
+         }
+
+         .calendar-grid {
+             display: grid;
+             grid-template-columns: repeat(7, 1fr);
+             gap: 8px;
+             margin-bottom: 20px;
+         }
+
+                 .calendar-day {
+             aspect-ratio: 1;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             border-radius: 8px;
+             font-size: 16px;
+             font-weight: 600;
+             cursor: pointer;
+             transition: all 0.2s;
+             position: relative;
+             min-height: 40px;
+         }
+
+        .calendar-day.available {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 2px solid transparent;
+        }
+
+        .calendar-day.available:hover {
+            background: #3b82f6;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.selected {
+            background: #3b82f6;
+            color: white;
+            border-color: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.unavailable {
+            background: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.today {
+            border: 2px solid #10b981;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .time-slot {
+            padding: 12px 8px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-slot:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .time-slot.selected {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .time-slot.unavailable {
+            background: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .booking-form {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+
+        .booking-form.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .booking-confirmation {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin: 16px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .booking-confirmation.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .confirmation-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .confirmation-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .confirmation-details {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .integration-message {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .integration-icon {
+            font-size: 16px;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-blur: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .language-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .click-indicator {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(59, 130, 246, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: clickEffect 0.6s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes clickEffect {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .user-interaction {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            color: #0c4a6e;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="language-switcher">
+                <button class="language-btn active" onclick="switchLanguage('sv')">SV</button>
+                <button class="language-btn" onclick="switchLanguage('en')">EN</button>
+            </div>
+            <h2 id="header-title">Live AI Chat Demo</h2>
+            <p id="header-subtitle">Axie Studio - Interactive Booking System</p>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="status-text">Online</span>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Translation system
+        const translations = {
+            sv: {
+                header: {
+                    title: "Live AI Chat Demo",
+                    subtitle: "Axie Studio - Interaktivt Bokningssystem",
+                    status: "Online"
+                },
+                messages: {
+                    welcome: "Hej! Välkommen till vår digitala receptionist. Jag är här för att hjälpa dig med bokningar, information och service. Hur kan jag hjälpa dig idag?",
+                    booking: "Perfekt! Jag kan hjälpa dig med bokningar. Låt mig öppna vårt bokningssystem så du kan välja tid direkt.",
+                    calendar: "Här är vårt bokningssystem. Du kan klicka på tillgängliga datum och tider för att boka din tid:",
+                    timeSelected: "Utmärkt! Du har valt {{date}} kl {{time}}. Fyll i dina uppgifter nedan för att slutföra bokningen.",
+                    confirmation: "Bokning bekräftad! Din tid är nu reserverad. Du kommer få en bekräftelse via e-post inom några minuter.",
+                    integration: "Jag använder ert befintliga bokningssystem för att säkerställa att allt synkroniseras korrekt med era system.",
+                    thanks: "Tack för din bokning! Vi ser fram emot att träffa dig. Har du några andra frågor jag kan hjälpa dig med?"
+                },
+                calendar: {
+                    available: "Tillgänglig",
+                    selected: "Vald",
+                    unavailable: "Inte tillgänglig",
+                    today: "Idag"
+                },
+                form: {
+                    name: "Namn",
+                    email: "E-post",
+                    phone: "Telefon",
+                    guests: "Antal gäster",
+                    specialRequests: "Specialkrav",
+                    bookNow: "Boka nu",
+                    cancel: "Avbryt"
+                },
+                booking: {
+                    title: "Bokningssystem",
+                    status: "Kopplad till ert system",
+                    confirmation: "Bokning bekräftad!"
+                }
+            },
+            en: {
+                header: {
+                    title: "Live AI Chat Demo",
+                    subtitle: "Axie Studio - Interactive Booking System",
+                    status: "Online"
+                },
+                                 messages: {
+                     welcome: "Hello! Welcome to our digital receptionist. I'm here to help you with bookings, information, and service. How can I assist you today?",
+                     booking: "Thank you for wanting to book with us! I will open our booking system so you can select a time directly.",
+                     calendar: "Here's our booking system. You can click on available dates and times to book your appointment:",
+                     timeSelected: "Excellent! You've selected {{date}} at {{time}}. Fill in your details below to complete the booking.",
+                     confirmation: "Booking confirmed! Your appointment is now reserved. You'll receive a confirmation email within a few minutes.",
+                     integration: "I'm using your existing booking system to ensure everything syncs correctly with your systems.",
+                     thanks: "Thank you for your booking! We look forward to seeing you. Do you have any other questions I can help you with?"
+                 },
+                calendar: {
+                    available: "Available",
+                    selected: "Selected", 
+                    unavailable: "Unavailable",
+                    today: "Today"
+                },
+                form: {
+                    name: "Name",
+                    email: "Email",
+                    phone: "Phone",
+                    guests: "Number of guests",
+                    specialRequests: "Special requests",
+                    bookNow: "Book now",
+                    cancel: "Cancel"
+                },
+                booking: {
+                    title: "Booking System",
+                    status: "Connected to your system",
+                    confirmation: "Booking confirmed!"
+                }
+            }
+        };
+
+        let currentLanguage = 'sv';
+        let selectedDate = null;
+        let selectedTime = null;
+        let isBookingComplete = false;
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update language buttons
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update header
+            document.getElementById('header-title').textContent = translations[lang].header.title;
+            document.getElementById('header-subtitle').textContent = translations[lang].header.subtitle;
+            document.getElementById('status-text').textContent = translations[lang].header.status;
+            
+            // Update existing messages
+            updateMessageTranslations();
+        }
+
+        function t(key, params = {}) {
+            const keys = key.split('.');
+            let value = translations[currentLanguage];
+            
+            for (const k of keys) {
+                value = value[k];
+            }
+            
+            if (typeof value === 'string' && params) {
+                return value.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
+                    return params[paramKey] !== undefined ? params[paramKey] : match;
+                });
+            }
+            
+            return value || key;
+        }
+
+        function updateMessageTranslations() {
+            startConversation();
+        }
+
+        function createClickEffect(x, y) {
+            const indicator = document.createElement('div');
+            indicator.className = 'click-indicator';
+            indicator.style.left = (x - 10) + 'px';
+            indicator.style.top = (y - 10) + 'px';
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => {
+                indicator.remove();
+            }, 600);
+        }
+
+        function handleDateClick(element, date) {
+            createClickEffect(
+                element.getBoundingClientRect().left + element.offsetWidth / 2,
+                element.getBoundingClientRect().top + element.offsetHeight / 2
+            );
+            
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day.selected').forEach(day => {
+                day.classList.remove('selected');
+            });
+            
+            // Add selection to clicked date
+            element.classList.add('selected');
+            selectedDate = date;
+            
+            // Show time slots
+            setTimeout(() => {
+                showTimeSlots();
+            }, 300);
+        }
+
+        function handleTimeClick(element, time) {
+            createClickEffect(
+                element.getBoundingClientRect().left + element.offsetWidth / 2,
+                element.getBoundingClientRect().top + element.offsetHeight / 2
+            );
+            
+            // Remove previous selection
+            document.querySelectorAll('.time-slot.selected').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            // Add selection to clicked time
+            element.classList.add('selected');
+            selectedTime = time;
+            
+            // Show booking form
+            setTimeout(() => {
+                showBookingForm();
+            }, 300);
+        }
+
+        function showTimeSlots() {
+            const timeSlots = document.querySelector('.time-slots');
+            if (timeSlots) {
+                timeSlots.style.display = 'grid';
+                timeSlots.style.animation = 'slideDown 0.3s ease-out';
+            }
+        }
+
+        function showBookingForm() {
+            const bookingForm = document.querySelector('.booking-form');
+            if (bookingForm) {
+                bookingForm.classList.add('active');
+            }
+        }
+
+        function completeBooking() {
+            isBookingComplete = true;
+            const confirmation = document.querySelector('.booking-confirmation');
+            if (confirmation) {
+                confirmation.classList.add('active');
+            }
+            
+            // Hide booking form
+            const bookingForm = document.querySelector('.booking-form');
+            if (bookingForm) {
+                bookingForm.style.display = 'none';
+            }
+            
+            // Continue conversation
+            setTimeout(() => {
+                continueConversation();
+            }, 2000);
+        }
+
+        const messages = [
+            {
+                type: 'ai',
+                content: 'messages.welcome',
+                time: '14:32'
+            },
+            {
+                type: 'user',
+                content: 'Hej! Jag skulle vilja boka ett bord för 4 personer på fredag kväll.',
+                time: '14:33'
+            },
+            {
+                type: 'ai',
+                content: 'Tack för att du vill boka hos oss! Jag kommer att öppna vårt bokningssystem så du kan välja tid direkt.',
+                time: '14:33'
+            },
+            {
+                type: 'ai',
+                content: 'messages.calendar',
+                time: '14:34',
+                calendar: true
+            },
+            {
+                type: 'user',
+                content: 'Perfekt! Jag ser att jag kan klicka direkt i kalendern.',
+                time: '14:35',
+                interaction: true
+            }
+        ];
+
+        const chatMessages = document.getElementById('chatMessages');
+        let currentMessageIndex = 0;
+
+        function createMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.type}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = `message-avatar ${message.type}`;
+            avatar.textContent = message.type === 'ai' ? 'AI' : 'Du';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            
+            // Get translated content
+            const messageContent = message.content.startsWith('messages.') ? t(message.content) : message.content;
+            
+            if (message.calendar) {
+                content.innerHTML = `
+                    <div class="message-text">${messageContent}</div>
+                    <div class="booking-iframe-container">
+                        <div class="iframe-header">
+                            <div class="iframe-title">
+                                📅 ${t('booking.title')}
+                                <span class="iframe-badge">Live</span>
+                            </div>
+                            <div class="iframe-status">
+                                <div class="status-indicator-iframe"></div>
+                                ${t('booking.status')}
+                            </div>
+                        </div>
+                                                 <div class="calendar-interface">
+                             <div class="calendar-header">
+                                 <div class="calendar-title">Augusti 2024</div>
+                                 <div class="calendar-nav">
+                                     <button class="nav-btn">‹</button>
+                                     <button class="nav-btn">›</button>
+                                 </div>
+                             </div>
+                             <div class="calendar-weekdays">
+                                 <div class="weekday">Mån</div>
+                                 <div class="weekday">Tis</div>
+                                 <div class="weekday">Ons</div>
+                                 <div class="weekday">Tor</div>
+                                 <div class="weekday">Fre</div>
+                                 <div class="weekday">Lör</div>
+                                 <div class="weekday">Sön</div>
+                             </div>
+                             <div class="calendar-grid">
+                                 <!-- Week 1 -->
+                                 <div class="calendar-day unavailable"></div>
+                                 <div class="calendar-day unavailable"></div>
+                                 <div class="calendar-day unavailable"></div>
+                                 <div class="calendar-day unavailable"></div>
+                                 <div class="calendar-day available today" onclick="handleDateClick(this, '2 augusti')">2</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '3 augusti')">3</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '4 augusti')">4</div>
+                                 
+                                 <!-- Week 2 -->
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '5 augusti')">5</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '6 augusti')">6</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '7 augusti')">7</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '8 augusti')">8</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '9 augusti')">9</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '10 augusti')">10</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '11 augusti')">11</div>
+                                 
+                                 <!-- Week 3 -->
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '12 augusti')">12</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '13 augusti')">13</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '14 augusti')">14</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '15 augusti')">15</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '16 augusti')">16</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '17 augusti')">17</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '18 augusti')">18</div>
+                                 
+                                 <!-- Week 4 -->
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '19 augusti')">19</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '20 augusti')">20</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '21 augusti')">21</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '22 augusti')">22</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '23 augusti')">23</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '24 augusti')">24</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '25 augusti')">25</div>
+                                 
+                                 <!-- Week 5 -->
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '26 augusti')">26</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '27 augusti')">27</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '28 augusti')">28</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '29 augusti')">29</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '30 augusti')">30</div>
+                                 <div class="calendar-day available" onclick="handleDateClick(this, '31 augusti')">31</div>
+                                 <div class="calendar-day unavailable"></div>
+                             </div>
+                            <div class="time-slots" style="display: none;">
+                                <div class="time-slot" onclick="handleTimeClick(this, '18:00')">18:00</div>
+                                <div class="time-slot" onclick="handleTimeClick(this, '19:00')">19:00</div>
+                                <div class="time-slot" onclick="handleTimeClick(this, '20:00')">20:00</div>
+                                <div class="time-slot" onclick="handleTimeClick(this, '21:00')">21:00</div>
+                                <div class="time-slot unavailable">22:00</div>
+                                <div class="time-slot unavailable">23:00</div>
+                            </div>
+                            <div class="booking-form">
+                                <div class="form-group">
+                                    <label class="form-label">${t('form.name')}</label>
+                                    <input type="text" class="form-input" placeholder="Ditt namn">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">${t('form.email')}</label>
+                                    <input type="email" class="form-input" placeholder="din@email.se">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">${t('form.phone')}</label>
+                                    <input type="tel" class="form-input" placeholder="070-123 45 67">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">${t('form.guests')}</label>
+                                    <select class="form-select">
+                                        <option>1</option>
+                                        <option selected>4</option>
+                                        <option>6</option>
+                                        <option>8</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">${t('form.specialRequests')}</label>
+                                    <textarea class="form-input" rows="3" placeholder="Laktosfri meny, allergier, etc."></textarea>
+                                </div>
+                                <div class="booking-actions">
+                                    <button class="btn btn-primary" onclick="completeBooking()">${t('form.bookNow')}</button>
+                                    <button class="btn btn-secondary">${t('form.cancel')}</button>
+                                </div>
+                            </div>
+                            <div class="booking-confirmation">
+                                <div class="confirmation-icon">✅</div>
+                                <div class="confirmation-title">${t('booking.confirmation')}</div>
+                                <div class="confirmation-details">
+                                    <p><strong>Datum:</strong> <span id="confirm-date">-</span></p>
+                                    <p><strong>Tid:</strong> <span id="confirm-time">-</span></p>
+                                    <p><strong>Antal personer:</strong> 4</p>
+                                    <p><strong>Bekräftelse:</strong> Skickas via e-post</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (message.interaction) {
+                content.innerHTML = `
+                    <div class="message-text">${messageContent}</div>
+                    <div class="user-interaction">
+                        👆 Klickar på tillgängligt datum...
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="message-text">${messageContent.replace(/\n/g, '<br>')}</div>
+                `;
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            
+            return messageDiv;
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai';
+            typingDiv.innerHTML = `
+                <div class="message-avatar ai">AI</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return typingDiv;
+        }
+
+        function removeTypingIndicator(typingDiv) {
+            if (typingDiv) {
+                typingDiv.remove();
+            }
+        }
+
+                 function continueConversation() {
+             const additionalMessages = [
+                 {
+                     type: 'ai',
+                     content: 'messages.integration',
+                     time: '14:36'
+                 },
+                 {
+                     type: 'user',
+                     content: currentLanguage === 'sv' ? 'Fantastiskt! Det känns som att jag använder ert riktiga bokningssystem.' : 'Fantastic! It feels like I\'m using your real booking system.',
+                     time: '14:37'
+                 },
+                 {
+                     type: 'ai',
+                     content: 'messages.thanks',
+                     time: '14:38'
+                 }
+             ];
+
+            displayAdditionalMessages(additionalMessages).then(() => {
+                // Loop the conversation infinitely
+                setTimeout(() => {
+                    console.log('Restarting conversation loop...');
+                    startConversation();
+                }, 3000); // Wait 3 seconds before restarting
+            });
+        }
+
+        async function displayAdditionalMessages(messages) {
+            for (let i = 0; i < messages.length; i++) {
+                const message = messages[i];
+                
+                let typingIndicator = null;
+                if (message.type === 'ai') {
+                    typingIndicator = showTypingIndicator();
+                    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
+                    removeTypingIndicator(typingIndicator);
+                } else {
+                    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 500));
+                }
+                
+                const messageElement = createMessage(message);
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            return Promise.resolve(); // Return a resolved promise
+        }
+
+        async function displayMessages() {
+            for (let i = 0; i < messages.length; i++) {
+                const message = messages[i];
+                
+                let typingIndicator = null;
+                if (message.type === 'ai') {
+                    typingIndicator = showTypingIndicator();
+                    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
+                    removeTypingIndicator(typingIndicator);
+                } else {
+                    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 500));
+                }
+                
+                const messageElement = createMessage(message);
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+
+        function startConversation() {
+            chatMessages.innerHTML = '';
+            currentMessageIndex = 0;
+            selectedDate = null;
+            selectedTime = null;
+            isBookingComplete = false;
+            
+            // Add a brief pause before starting the conversation loop
+            setTimeout(() => {
+                displayMessages();
+            }, 1000);
+        }
+
+        // Start the conversation when page loads
+        window.addEventListener('load', () => {
+            startConversation();
+        });
+
+        // Auto-scroll to bottom when new messages are added
+        const observer = new MutationObserver(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+
+        observer.observe(chatMessages, {
+            childList: true,
+            subtree: true
+        });
+
+        // Add click effect to document
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('calendar-day') || e.target.classList.contains('time-slot')) {
+                return; // Let the specific handlers deal with these
+            }
+            createClickEffect(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+</html> 

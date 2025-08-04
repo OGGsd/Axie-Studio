@@ -34,26 +34,26 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
         return {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          "itemListElement": data.map((item: any, index: number) => ({
+          "itemListElement": Array.isArray(data) ? data.map((item: any, index: number) => ({
             "@type": "ListItem",
             "position": index + 1,
             "name": item.name,
             "item": item.url
-          }))
+          })) : []
         };
         
       case 'faq':
         return {
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          "mainEntity": data.map((faq: any) => ({
+          "mainEntity": Array.isArray(data) ? data.map((faq: any) => ({
             "@type": "Question",
             "name": faq.question,
             "acceptedAnswer": {
               "@type": "Answer",
               "text": faq.answer
             }
-          }))
+          })) : []
         };
         
       default:
